@@ -1,0 +1,89 @@
+﻿@model IEnumerable<FootballStatisticsManagementApp.Models.Player>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-controller="Players" asp-action="Index">
+    <p>
+        Name: <input type="text" name="SearchParam" />
+        <input type="submit" value="Search" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @if (ViewBag.sortBy == "name_asc")
+                {
+                    <a href="/Players?sortParam=name_desc">@Html.DisplayNameFor(model => model.Name)</a>
+                }
+                else
+                {
+                    <a href="/Players?sortParam=name_asc">@Html.DisplayNameFor(model => model.Name)</a>
+                }
+            </th>
+            <th>
+                @if (ViewBag.sortBy == "dob_asc")
+                {
+                    <a href="/Players?sortParam=dob_desc">@Html.DisplayNameFor(model => model.Dob)</a>
+                }
+                else
+                {
+                    <a href="/Players?sortParam=dob_asc">@Html.DisplayNameFor(model => model.Dob)</a>
+                }
+            </th>
+            <th>
+                @if (ViewBag.sortBy == "kit_asc")
+                {
+                    <a href="/Players?sortParam=kit_desc">@Html.DisplayNameFor(model => model.KitNumber)</a>
+                }
+                else
+                {
+                    <a href="/Players?sortParam=kit_asc">@Html.DisplayNameFor(model => model.KitNumber)</a>
+                }
+            </th>
+            <th>
+                @if (ViewBag.sortBy == "team_asc")
+                {
+                    <a href="/Players?sortParam=team_desc">@Html.DisplayNameFor(model => model.Team)</a>
+                }
+                else
+                {
+                    <a href="/Players?sortParam=team_asc">@Html.DisplayNameFor(model => model.Team)</a>
+                }
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dob)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KitNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Team.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PlayerId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PlayerId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PlayerId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

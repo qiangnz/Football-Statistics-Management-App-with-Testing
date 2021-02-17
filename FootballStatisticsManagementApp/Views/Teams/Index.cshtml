@@ -1,0 +1,63 @@
+﻿@model IEnumerable<FootballStatisticsManagementApp.Models.Team>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-controller="Teams" asp-action="Index">
+    <p>
+        Name: <input type="text" name="SearchParam" />
+        <input type="submit" value="Search" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @if (ViewBag.sortBy == "name_asc")
+                {
+                    <a href="/Teams?sortParam=name_desc">@Html.DisplayNameFor(model => model.Name)</a>
+                }
+                else
+                {
+                    <a href="/Teams?sortParam=name_asc">@Html.DisplayNameFor(model => model.Name)</a>
+                }
+            </th>
+            <th>
+                @if (ViewBag.sortBy == "loc_asc")
+                {
+                    <a href="/Teams?sortParam=loc_desc">@Html.DisplayNameFor(model => model.Location)</a>
+                }
+                else
+                {
+                    <a href="/Teams?sortParam=loc_asc">@Html.DisplayNameFor(model => model.Location)</a>
+                }
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.TeamId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.TeamId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.TeamId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

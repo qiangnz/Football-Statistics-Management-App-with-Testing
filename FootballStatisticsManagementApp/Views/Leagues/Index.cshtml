@@ -1,0 +1,50 @@
+﻿@model IEnumerable<FootballStatisticsManagementApp.Models.League>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-controller="Leagues" asp-action="Index">
+    <p>
+        Name: <input type="text" name="SearchParam" />
+        <input type="submit" value="Search" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @if (ViewBag.sortBy == "year_asc")
+                {
+                    <a href="/Leagues?sortParam=year_desc">@Html.DisplayNameFor(model => model.Year)</a>
+                }
+                else
+                {
+                    <a href="/Leagues?sortParam=year_asc">@Html.DisplayNameFor(model => model.Year)</a>
+                }
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.LeagueId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.LeagueId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.LeagueId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
